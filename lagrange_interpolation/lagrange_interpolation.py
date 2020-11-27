@@ -12,7 +12,7 @@ plt.style.use(['seaborn'])
 # also need to be stated.
 a = -1
 b = 1
-poly_degree = 16
+poly_degree = 8
 f = lambda x: (1 + 25*x**2)**(-1)
 g = lambda x: exp(x)
 
@@ -20,7 +20,6 @@ g = lambda x: exp(x)
 # of the polynomial.
 total_nodes = poly_degree + 1
 nodes = np.linspace(a, b, total_nodes)
-
 
 # Until now this function generates a number of elements equal to the number
 # of specified nodes. Now it is able to accept any function, to be declared
@@ -45,29 +44,39 @@ def polynomial(x, function):
         j += 1
 
     return sum(list_j)
+# Function to plot the original function and the function aproximated by
+# the Lagrange interpolation.
 
-# Mapping the polynomial function to all values of x.
-# Changed the mapping to a list comprehension.
-x = np.arange(a, b, 0.01)
-# y = map(polynomial, x)
-# y = list(y)
-y = [polynomial(i, f) for i in x]
-error = f(x) - y
+def plot_polynomial(equation):
+    x = np.arange(a, b, 0.01)
+    # This is a list comprehension
+    y = [polynomial(i, equation) for i in x]
 
-plt.plot(x, f(x), color='blue', linewidth=3, alpha=0.5, label='Original function')
-plt.plot(x, y, '-.', color='red', linewidth=2, label='Interpolation')
-plt.xlabel('$x$')
-plt.ylabel('$y$')
-plt.title('Legendre Interpolation')
-plt.legend()
-plt.show()
+    plt.plot(x, equation(x), color='blue', linewidth=3, alpha=0.5,
+        label='Original function')
+    plt.plot(x, y, '-.', color='red', linewidth=2,
+        label='$P_{%i}(x)$' %poly_degree)
+    plt.xlabel('$x$')
+    plt.ylabel('$y$')
+    plt.title('Legendre Interpolation')
+    plt.legend()
+    return plt.show()
 
-# Plot of the error between the original function and the function by
-# Legendre aproximation.
-plt.plot(x, error, color='blue', label='$f(x) - P_{%i}(x)$' %poly_degree)
-plt.xlabel('$x$')
-plt.ylabel('error')
-plt.title('Error')
-plt.legend()
-plt.show()
+# Function to plot the error between the original function and the function by
+# Legendre interpolation.
+def plot_error(equation):
+    x = np.arange(a, b, 0.01)
+    y = [polynomial(i, equation) for i in x]
+    error = equation(x) - y
+
+    plt.plot(x, error, color='blue', label='$f(x) - P_{%i}(x)$' %poly_degree)
+    plt.xlabel('$x$')
+    plt.ylabel('error')
+    plt.title('Error')
+    plt.legend()
+    return plt.show()
+
+plot_polynomial(f)
+plot_error(f)
+
 # Fake line
