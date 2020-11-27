@@ -4,24 +4,28 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import exp
+plt.style.use(['seaborn'])
 
-# Here [a, b] represents the desired interval. The number of total nodes
-# represents the degree of the polynomial minus 1. This is, for n nodes
-# the degree of p will be n-1.
+# The usr need to input the interval [a, b] which will be used to generate
+# the nodes. The polynomial degree needs to be stated because the total number
+# of nodes depends on it. Most importantly, the function to be interpolated
+# also need to be stated.
 a = -1
 b = 1
-poly_degree = 8
-
-# Definitions for the function to be interpolated and the nodes required
-# as indicated in the textbook.
-total_nodes = poly_degree + 1
+poly_degree = 16
 f = lambda x: (1 + 25*x**2)**(-1)
+g = lambda x: exp(x)
+
+# List for the nodes, and the total number of nodes depending on the degree
+# of the polynomial.
+total_nodes = poly_degree + 1
 nodes = np.linspace(a, b, total_nodes)
 
 
 # Until now this function generates a number of elements equal to the number
-# of specified nodes.
-def polynomial(x):
+# of specified nodes. Now it is able to accept any function, to be declared
+# in the argument of polynomial.
+def polynomial(x, function):
     j = 0
     list_j = []
 
@@ -36,24 +40,34 @@ def polynomial(x):
             else:
                 pass
 
-        element_j = np.prod(list_i)*f(nodes[j])
+        element_j = np.prod(list_i)*function(nodes[j])
         list_j.append(element_j)
         j += 1
 
     return sum(list_j)
 
 # Mapping the polynomial function to all values of x.
+# Changed the mapping to a list comprehension.
 x = np.arange(a, b, 0.01)
-y = map(polynomial, x)
-y = list(y)
+# y = map(polynomial, x)
+# y = list(y)
+y = [polynomial(i, f) for i in x]
+error = f(x) - y
 
-plt.plot(x, y, '--', color='red', label='Interpolation')
-plt.plot(x, f(x), label='Original function')
+plt.plot(x, f(x), color='blue', linewidth=3, alpha=0.5, label='Original function')
+plt.plot(x, y, '-.', color='red', linewidth=2, label='Interpolation')
 plt.xlabel('$x$')
 plt.ylabel('$y$')
+plt.title('Legendre Interpolation')
 plt.legend()
-# plt.show()
+plt.show()
 
-# Note. It lasts to plot the error between the polynomial of degree 8 and
-# the original function.
-# New fake line.
+# Plot of the error between the original function and the function by
+# Legendre aproximation.
+plt.plot(x, error, color='blue', label='$f(x) - P_{%i}(x)$' %poly_degree)
+plt.xlabel('$x$')
+plt.ylabel('error')
+plt.title('Error')
+plt.legend()
+plt.show()
+# Fake line
