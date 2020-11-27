@@ -42,20 +42,17 @@ def polynomial(x):
 
     return sum(list_j)
 
-# By the way the polynomial is defined, it is needed to perform a for loop
-# over all the elements on x applied to the pseudo function to generate the
-# points in y.
+# Mapping the polynomial function to all values of x.
 x = np.arange(a, b, 0.01)
-y = []
-for i in x:
-    y.append(polynomial(i))
+y = map(polynomial, x)
+y = list(y)
 
 plt.plot(x, y, '--', color='red', label='Interpolation')
 plt.plot(x, f(x), label='Original function')
 plt.xlabel('$x$')
 plt.ylabel('$y$')
 plt.legend()
-plt.show()
+# plt.show()
 
 # Note. It lasts to plot the error between the polynomial of degree 8 and
 # the original function.
