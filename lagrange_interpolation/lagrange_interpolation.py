@@ -48,7 +48,8 @@ def polynomial(x, function):
 # the Lagrange interpolation.
 
 def plot_polynomial(equation):
-    x = np.arange(a, b, 0.01)
+    step_size = 0.01
+    x = np.arange(a, b+step_size, step_size)
     # This is a list comprehension
     y = [polynomial(i, equation) for i in x]
 
@@ -65,7 +66,8 @@ def plot_polynomial(equation):
 # Function to plot the error between the original function and the function by
 # Legendre interpolation.
 def plot_error(equation):
-    x = np.arange(a, b, 0.01)
+    step_size = 0.01
+    x = np.arange(a, b+step_size, step_size)
     y = [polynomial(i, equation) for i in x]
     error = equation(x) - y
 
