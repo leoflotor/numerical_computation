@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 from numpy import exp
 plt.style.use(['seaborn'])
 
-# The usr need to input the interval [a, b] which will be used to generate
+# The usr needs to input the interval [a, b] which will be used to generate
 # the nodes. The polynomial degree needs to be stated because the total number
 # of nodes depends on it. Most importantly, the function to be interpolated
-# also need to be stated.
+# also needs to be stated.
 a = -1
 b = 1
 poly_degree = 8
@@ -33,7 +33,7 @@ nodes = np.linspace(a, b, total_nodes)
 
 # Until now this function generates a number of elements equal to the number
 # of specified nodes. Now it is able to accept any function to be declared
-# in the argument of polynomial.
+# in its argument.
 
 
 def polynomial(x, function):
@@ -58,15 +58,23 @@ def polynomial(x, function):
     return sum(list_j)
 
 
-# Function to plot the original function and the function aproximated by
-# the Lagrange interpolation.
-
-
-def plot_polynomial(equation):
+# This function will generate the arrays needed in the
+# plot_polynomial and error functions.
+def points(equation):
     step_size = 0.01
     x = np.arange(a, b + step_size, step_size)
     # This is a list comprehension
     y = [polynomial(i, equation) for i in x]
+    y = np.array(y)
+    return x, y
+
+
+# Function to plot the original equation and the equation aproximated by
+# the Lagrange interpolation.
+
+
+def plot_polynomial(equation):
+    x, y = points(equation)
 
     plt.plot(x,
              equation(x),
@@ -87,14 +95,12 @@ def plot_polynomial(equation):
     return plt.show()
 
 
-# Function to plot the error between the original function and the function
-# by Legendre interpolation.
+# Function to plot the error between the original equation and the
+# aproximation by Legendre interpolation.
 
 
 def plot_error(equation):
-    step_size = 0.01
-    x = np.arange(a, b + step_size, step_size)
-    y = [polynomial(i, equation) for i in x]
+    x, y = points(equation)
     error = equation(x) - y
 
     plt.plot(x,
