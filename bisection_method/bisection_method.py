@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 from numpy import log, exp
 
-fm._rebuild()
+#fm._rebuild()
 plt.style.reload_library()
 
 f = lambda x: 2 - exp(x)
@@ -24,16 +24,16 @@ function_y = f(function_x)
 x = [a, b]
 y = [f(a), f(b)]
 
-n = ((log(b - a) - log(epsilon))/log(2)) + 1
+n = ((log(b - a) - log(epsilon)) / log(2)) + 1
 k = 1
 
 # This condition needs to be changed, instead of depending of a fixed numer
 # of iterations it is important that it depends on the desired accuracy.
 while k < round(n):
-    c = a + (b - a)/2
-    factor = f(a)*f(c)
+    c = a + (b - a) / 2
+    factor = f(a) * f(c)
 
-    if  factor < 0:
+    if factor < 0:
         a = a
         b = c
 
@@ -56,7 +56,7 @@ with plt.style.context(['science', 'no-latex', 'grid']):
     plt.figure()
     plt.plot(function_x, function_y, '--')
     plt.scatter(x[0:-1], y[0:-1], color='pink')
-    plt.plot(x[-1],y[-1], '*', color='red', label=rounded_root)
+    plt.plot(x[-1], y[-1], '*', color='red', label=rounded_root)
     plt.xlabel('$x$')
     plt.ylabel('$f(x)$')
     plt.legend()
