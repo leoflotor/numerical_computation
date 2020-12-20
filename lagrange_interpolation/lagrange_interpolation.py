@@ -41,13 +41,13 @@ def polynomial(x, function):
     list_j = []
 
     while j < len(nodes):
-        i = 0
+        # i = 0
         list_i = []
         for i in range(0, len(nodes)):
             if i != j:
                 element_i = ((x - nodes[i]) / (nodes[j] - nodes[i]))
                 list_i.append(element_i)
-                i += 1
+                # i += 1
             else:
                 pass
 
@@ -92,6 +92,7 @@ def plot_polynomial(equation):
     plt.ylabel('$y$')
     plt.title('Legendre Interpolation')
     plt.legend()
+    plt.ylim(-1.25, 1.5)
     return plt.show()
 
 
