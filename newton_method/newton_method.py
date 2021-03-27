@@ -5,7 +5,8 @@ plt.style.use(['seaborn'])
 
 x = sym.Symbol('x')
 # f = 1 - 2*x*sym.exp(-x/2)
-f = x + sym.tan(x)
+# f = x + sym.tan(x)
+f = x**2 - 1 / 2
 f_prime = sym.diff(f)
 
 f = sym.lambdify(x, f)

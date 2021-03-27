@@ -15,7 +15,7 @@ plt.style.use(['seaborn'])
 # also needs to be stated.
 a = -1
 b = 1
-poly_degree = 8
+poly_degree = 16
 
 
 def f(x):

@@ -41,16 +41,18 @@ def polynomial(point, nodes_x, nodes_y, degree):
 
     return p
 
+# This part of the script is not necessasry. Everythig done here
+# is calculated on the polynomial function.
+#
+# def interpolation(point, nodes_x, nodes_y, degree):
+#     coefficients(nodes_x, nodes_y, degree)
+#     p = polynomial(point, nodes_x, nodes_y, degree)
 
-def interpolation(point, nodes_x, nodes_y, degree):
-    coefficients(nodes_x, nodes_y, degree)
-    p = polynomial(point, nodes_x, nodes_y, degree)
-
-    return p
+#     return p
 
 
 points = np.linspace(x[0], x[-1], 50)
-approximation = interpolation(points, x, y, poly_degree)
+approximation = polynomial(points, x, y, poly_degree)
 
 # Does the interpolation P(xi) = f(xi) for all the nodes?
 # Yes, it is. Although there is a numerical error, maybe due to python.
